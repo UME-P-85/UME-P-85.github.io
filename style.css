@@ -77,6 +77,68 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* ---------- Ambient underwater shimmer ----------
+   Fixed full-viewport overlay of soft, drifting light blobs.
+   mix-blend-mode: screen makes them lighten the base gradient without
+   dimming it. Positioned behind all content via z-index: 0 + the
+   body's stacking context. */
+body::before {
+  content: "";
+  position: fixed;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 40% 30% at 20% 15%,
+      rgba(180, 220, 245, 0.22) 0%,
+      rgba(180, 220, 245, 0) 60%),
+    radial-gradient(ellipse 34% 26% at 78% 30%,
+      rgba(200, 235, 250, 0.18) 0%,
+      rgba(200, 235, 250, 0) 65%),
+    radial-gradient(ellipse 44% 34% at 50% 62%,
+      rgba(150, 200, 235, 0.16) 0%,
+      rgba(150, 200, 235, 0) 60%),
+    radial-gradient(ellipse 32% 24% at 15% 82%,
+      rgba(190, 225, 245, 0.14) 0%,
+      rgba(190, 225, 245, 0) 65%),
+    radial-gradient(ellipse 38% 28% at 85% 90%,
+      rgba(170, 215, 240, 0.15) 0%,
+      rgba(170, 215, 240, 0) 65%);
+  mix-blend-mode: screen;
+  animation: shimmer-drift 26s ease-in-out infinite alternate;
+  filter: blur(30px);
+}
+
+/* Slow, meandering drift — swells and shifts like light on a wave surface */
+@keyframes shimmer-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  33% {
+    transform: translate3d(-2%, 1.5%, 0) scale(1.06);
+    opacity: 1;
+  }
+  66% {
+    transform: translate3d(1.5%, -1%, 0) scale(1.02);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(0.8%, 0.6%, 0) scale(1.04);
+    opacity: 0.95;
+  }
+}
+
+/* Keep real content above the shimmer */
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 img {
@@ -116,7 +178,7 @@ button {
       rgba(200, 235, 250, 0) 65%);
 }
 
-/* Subtle floating light particles / caustics */
+/* Subtle floating light particles / caustics — now twinkling */
 .dreamfield::before {
   content: "";
   position: absolute;
@@ -130,6 +192,61 @@ button {
     radial-gradient(1px 1px at 34% 22%, rgba(255,255,255,0.35), transparent 60%),
     radial-gradient(2px 2px at 55% 4%, rgba(255,255,255,0.4), transparent 60%);
   opacity: 0.9;
+  animation: sparkle-twinkle 5.5s ease-in-out infinite;
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0.55; filter: blur(0px); }
+  50%      { opacity: 1;    filter: blur(0.4px); }
+}
+
+/* Divine god-rays — soft, translucent light shafts angling down through the water,
+   evoking sunlight refracting under the surface. */
+.dreamfield::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(105deg,
+      transparent 0%,
+      transparent 14%,
+      rgba(220, 240, 250, 0.10) 18%,
+      rgba(220, 240, 250, 0.16) 21%,
+      rgba(220, 240, 250, 0.08) 24%,
+      transparent 28%,
+      transparent 42%,
+      rgba(220, 240, 250, 0.06) 46%,
+      rgba(220, 240, 250, 0.12) 49%,
+      rgba(220, 240, 250, 0.05) 52%,
+      transparent 56%,
+      transparent 68%,
+      rgba(220, 240, 250, 0.09) 72%,
+      rgba(220, 240, 250, 0.14) 75%,
+      rgba(220, 240, 250, 0.07) 78%,
+      transparent 82%,
+      transparent 100%);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  transform-origin: 50% 0%;
+  animation: godray-sway 18s ease-in-out infinite alternate;
+  filter: blur(2px);
+}
+
+@keyframes godray-sway {
+  0% {
+    transform: translateX(-4%) skewX(-2deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(2%) skewX(1deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(4%) skewX(2deg);
+    opacity: 0.5;
+  }
 }
 
 /* ---------- Sticky top nav (always visible) ---------- */
@@ -252,14 +369,15 @@ button {
 }
 
 /* HOVER (and click-pinned) = morph from circle to rectangle, enlarge dramatically
-   so the image is viewable as an actual photograph. */
+   so the image is viewable as an actual photograph.
+   border-radius uses !important to defeat the ongoing bubble-wobble animation. */
 .floating-photo:hover,
 .floating-photo:focus-visible,
 .floating-photo--active {
   opacity: 1;
   filter: saturate(1.15) contrast(1.05) brightness(1.05);
   scale: 2.6;
-  border-radius: 6px;
+  border-radius: 6px !important;
   z-index: 20;
   outline: none;
   animation-play-state: paused;
@@ -268,26 +386,54 @@ button {
     0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-/* Size tiers */
+/* Size tiers — each tile chains two animations:
+   1) the drifting float
+   2) a slow bubble-wobble that deforms the border-radius organically */
 .floating-photo--sm {
   width: clamp(70px, 8vw, 110px);
   height: clamp(70px, 8vw, 110px);
-  animation: float-fast var(--dur, 14s) ease-in-out infinite;
+  animation:
+    float-fast var(--dur, 14s) ease-in-out infinite,
+    bubble-wobble 7s ease-in-out infinite;
   opacity: 0.7;
 }
 
 .floating-photo--md {
   width: clamp(120px, 13vw, 180px);
   height: clamp(120px, 13vw, 180px);
-  animation: float-mid var(--dur, 22s) ease-in-out infinite;
+  animation:
+    float-mid var(--dur, 22s) ease-in-out infinite,
+    bubble-wobble 9s ease-in-out infinite;
   opacity: 0.85;
 }
 
 .floating-photo--lg {
   width: clamp(200px, 22vw, 320px);
   height: clamp(200px, 22vw, 320px);
-  animation: float-slow var(--dur, 32s) ease-in-out infinite;
+  animation:
+    float-slow var(--dur, 32s) ease-in-out infinite,
+    bubble-wobble 11s ease-in-out infinite;
   opacity: 0.95;
+}
+
+/* Bubble-wobble: cycles through slightly asymmetric border-radius blobs
+   so the outline feels like a soft, living soap bubble. */
+@keyframes bubble-wobble {
+  0% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  }
+  25% {
+    border-radius: 54% 46% 52% 48% / 48% 54% 46% 52%;
+  }
+  50% {
+    border-radius: 47% 53% 45% 55% / 55% 47% 53% 45%;
+  }
+  75% {
+    border-radius: 52% 48% 55% 45% / 46% 53% 47% 54%;
+  }
+  100% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  }
 }
 
 /* .floating-photo--active is merged into the :hover selector above,
@@ -694,9 +840,13 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .floating-photo {
     animation: none !important;
+    border-radius: 50%;
   }
-  .scroll-down-arrow {
-    animation: none;
+  .scroll-down-arrow,
+  body::before,
+  .dreamfield::before,
+  .dreamfield::after {
+    animation: none !important;
   }
 }
 
