@@ -156,9 +156,11 @@
     };
 
     let activeEl = null;
+    let hoverTimer = null;
+    let pinned = false; // clicked = pinned; hover cannot change while pinned
 
-    function open(photo, el) {
-      if (activeEl) activeEl.classList.remove('floating-photo--active');
+    function open(photo, el, isPinned) {
+      if (activeEl && activeEl !== el) activeEl.classList.remove('floating-photo--active');
       activeEl = el;
       el.classList.add('floating-photo--active');
 
@@ -171,27 +173,62 @@
       fields.credit.textContent   = photo.credit;
 
       card.setAttribute('aria-hidden', 'false');
+      if (isPinned) pinned = true;
     }
 
     function close() {
       if (activeEl) activeEl.classList.remove('floating-photo--active');
       activeEl = null;
+      pinned = false;
       card.setAttribute('aria-hidden', 'true');
     }
 
-    // Delegated click on the floating field
+    function photoFromEl(el) {
+      const idx = Number(el.dataset.index);
+      return PHOTOS[idx];
+    }
+
+    // ---- Click = pin the card (won't change on subsequent hovers) ----
     field.addEventListener('click', (e) => {
       const el = e.target.closest('.floating-photo');
       if (!el) return;
-      const idx = Number(el.dataset.index);
-      const photo = PHOTOS[idx];
+      const photo = photoFromEl(el);
       if (!photo) return;
-      open(photo, el);
+      // If clicking the already-pinned photo, unpin & close
+      if (pinned && activeEl === el) {
+        close();
+        return;
+      }
+      open(photo, el, true);
     });
 
-    closeBtn.addEventListener('click', close);
+    // ---- Hover with small delay = show preview (doesn't override pin) ----
+    field.addEventListener('mouseover', (e) => {
+      const el = e.target.closest('.floating-photo');
+      if (!el) return;
+      if (pinned) return;
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(() => {
+        const photo = photoFromEl(el);
+        if (!photo) return;
+        open(photo, el, false);
+      }, 120);
+    });
 
-    // Close when clicking outside the card, but only after it's open
+    field.addEventListener('mouseout', (e) => {
+      const el = e.target.closest('.floating-photo');
+      if (!el) return;
+      // Cancel pending open if pointer leaves before delay elapses
+      clearTimeout(hoverTimer);
+    });
+
+    // ---- Close button ----
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      close();
+    });
+
+    // ---- Click outside card & outside photos = close ----
     document.addEventListener('click', (e) => {
       if (card.getAttribute('aria-hidden') !== 'false') return;
       if (card.contains(e.target)) return;
@@ -199,7 +236,7 @@
       close();
     });
 
-    // Esc to close
+    // ---- Esc to close ----
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') close();
     });
