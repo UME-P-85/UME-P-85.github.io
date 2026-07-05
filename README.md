@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/29678279/README.md)
+[README.md](https://github.com/user-attachments/files/29678586/README.md)
 # UMEP — Photography Portfolio (Dreamfield edition)
 
 写真家 UMEP のポートフォリオサイト。ダークキャンバスの上を、微生物のように写真の泡が浮遊するデザイン。ホバー / クリックで右下に詳細カードが立ち上がる。
@@ -85,25 +85,31 @@ img.src = photo.src;
 
 ---
 
-## 📮 コンタクトフォーム（Formspree）
+## 📮 コンタクトフォーム（FormSubmit）
 
-`GitHub Pages` は静的なので、フォーム送信には外部サービスが必要。**Formspree** が最も簡単（月50件まで無料）。
+`GitHub Pages` は静的なので、フォーム送信には外部サービスが必要。今は **FormSubmit** を使い、`zarunekodori@gmail.com` に直接届く設定になっている（アカウント登録不要）。
 
-1. https://formspree.io/ でアカウント作成
-2. 「New Form」→ 発行される Form ID（例：`xyzabcde`）をコピー
-3. `index.html` の以下を差し替え：
-
-**変更前：**
+現在の `index.html`：
 ```html
-<form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+<form class="contact-form" action="https://formsubmit.co/zarunekodori@gmail.com" method="POST">
 ```
 
-**変更後：**
+### 🔑 初回だけ「有効化」が必要
+
+サイト公開後、**初めて誰かがフォームを送信した時**、FormSubmit から `zarunekodori@gmail.com` に「Activate your form」という確認メールが1通届く。中のリンクを1回クリックすればそれ以降ずっと使えるようになる。
+
+### 別のメールに変えたい場合
+
+`index.html` の `action="..."` のメールアドレスを書き換えるだけ。
+
 ```html
-<form class="contact-form" action="https://formspree.io/f/xyzabcde" method="POST">
+action="https://formsubmit.co/別のアドレス@example.com"
 ```
 
-未設定のまま送信されると、`script.js` 側で「未設定です」の警告が出る仕組み。
+### 迷惑メール対策
+
+- `_captcha` を `true` にすると、送信時に reCAPTCHA が入る（現在は `false` でオフ）
+- `_honey` の隠しフィールドがボット除け（そのままで OK）
 
 ---
 
