@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UMEP — Photography Portfolio</title>
+  <meta name="description" content="UMEP — Photographer. Editorial, portrait, and fashion photography portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Top-right minimal nav -->
+  <nav class="site-nav" aria-label="Primary">
+    <a href="#work" class="nav-link nav-link--red">WORK</a>
+    <a href="#about" class="nav-link nav-link--red">ABOUT</a>
+    <a href="#contact" class="nav-link nav-link--blue">CONTACT</a>
+  </nav>
+
+  <!-- Hero: Massive wordmark + intro grid -->
+  <section class="hero" id="top">
+    <h1 class="wordmark" aria-label="UMEP">UMEP</h1>
+    <p class="tagline">PHOTOGRAPHER<span class="tagline-line" aria-hidden="true"></span></p>
+  </section>
+
+  <!-- Work / Gallery masonry -->
+  <section class="work" id="work">
+    <div class="masonry">
+      <figure class="tile tile--vermillion tile--portrait">
+        <img src="https://picsum.photos/seed/umep1/800/1100" alt="Editorial portrait" loading="lazy" />
+        <figcaption class="tile-caption caption--vermillion">EDITORIAL / 2025</figcaption>
+      </figure>
+      <figure class="tile tile--cobalt tile--square">
+        <img src="https://picsum.photos/seed/umep2/800/800" alt="Fashion campaign" loading="lazy" />
+        <figcaption class="tile-caption caption--cobalt">CAMPAIGN / TOKYO</figcaption>
+      </figure>
+      <figure class="tile tile--fern tile--landscape">
+        <img src="https://picsum.photos/seed/umep3/1100/800" alt="Nature editorial" loading="lazy" />
+        <figcaption class="tile-caption caption--fern">SERIES / GREEN</figcaption>
+      </figure>
+      <figure class="tile tile--marigold tile--portrait">
+        <img src="https://picsum.photos/seed/umep4/800/1100" alt="Studio portrait" loading="lazy" />
+        <figcaption class="tile-caption caption--marigold">STUDIO / OSAKA</figcaption>
+      </figure>
+      <figure class="tile tile--brass tile--square">
+        <img src="https://picsum.photos/seed/umep5/900/900" alt="Golden hour" loading="lazy" />
+        <figcaption class="tile-caption caption--brass">GOLDEN HOUR / 2024</figcaption>
+      </figure>
+      <figure class="tile tile--vermillion tile--landscape">
+        <img src="https://picsum.photos/seed/umep6/1200/800" alt="Editorial spread" loading="lazy" />
+        <figcaption class="tile-caption caption--vermillion">SPREAD / MAGAZINE</figcaption>
+      </figure>
+      <figure class="tile tile--cobalt tile--portrait">
+        <img src="https://picsum.photos/seed/umep7/800/1200" alt="Blue portrait" loading="lazy" />
+        <figcaption class="tile-caption caption--cobalt">BLUE HOUR</figcaption>
+      </figure>
+      <figure class="tile tile--fern tile--square">
+        <img src="https://picsum.photos/seed/umep8/800/800" alt="Green study" loading="lazy" />
+        <figcaption class="tile-caption caption--fern">STUDY / 08</figcaption>
+      </figure>
+    </div>
+
+    <!-- Full-width image break -->
+    <figure class="break">
+      <img src="https://picsum.photos/seed/umep-break/1800/1000" alt="Full-width editorial" loading="lazy" />
+    </figure>
+
+    <div class="masonry">
+      <figure class="tile tile--marigold tile--landscape">
+        <img src="https://picsum.photos/seed/umep9/1200/800" alt="Warm campaign" loading="lazy" />
+        <figcaption class="tile-caption caption--marigold">CAMPAIGN / WARM</figcaption>
+      </figure>
+      <figure class="tile tile--brass tile--portrait">
+        <img src="https://picsum.photos/seed/umep10/800/1100" alt="Brass editorial" loading="lazy" />
+        <figcaption class="tile-caption caption--brass">EDITORIAL / GOLD</figcaption>
+      </figure>
+      <figure class="tile tile--vermillion tile--square">
+        <img src="https://picsum.photos/seed/umep11/900/900" alt="Red portrait" loading="lazy" />
+        <figcaption class="tile-caption caption--vermillion">RED / STUDY</figcaption>
+      </figure>
+      <figure class="tile tile--cobalt tile--landscape">
+        <img src="https://picsum.photos/seed/umep12/1200/800" alt="Cobalt landscape" loading="lazy" />
+        <figcaption class="tile-caption caption--cobalt">LANDSCAPE / SEA</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <h2 class="section-word">ABOUT</h2>
+    <div class="about-body">
+      <p class="about-lead">
+        UMEP is a photographer based in Japan, working across editorial, portrait, and fashion.
+      </p>
+      <p class="about-text">
+        Selected clients include magazines, fashion labels, and independent artists.
+        Recent work has appeared in editorial features and campaign visuals across Asia.
+      </p>
+      <p class="about-text">
+        Available for commissions worldwide.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <h2 class="section-word">CONTACT</h2>
+    <div class="contact-body">
+      <p class="contact-lead">
+        For commissions, prints, or press inquiries.
+      </p>
+
+      <!-- Formspree-ready static form. Replace YOUR_FORM_ID after signing up at formspree.io -->
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="field">
+          <label for="name" class="field-label">NAME</label>
+          <input type="text" id="name" name="name" required class="field-input" />
+        </div>
+        <div class="field">
+          <label for="email" class="field-label">EMAIL</label>
+          <input type="email" id="email" name="email" required class="field-input" />
+        </div>
+        <div class="field">
+          <label for="message" class="field-label">MESSAGE</label>
+          <textarea id="message" name="message" rows="5" required class="field-input"></textarea>
+        </div>
+        <button type="submit" class="outlined-action">SEND MESSAGE</button>
+      </form>
+
+      <div class="contact-direct">
+        <p class="contact-lead">Or reach out directly:</p>
+        <a href="mailto:zarunekodori@gmail.com" class="outlined-action outlined-action--blue">EMAIL UMEP</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Minimal footer -->
+  <footer class="site-footer">
+    <span class="footer-text">© 2026 UMEP</span>
+    <a href="#top" class="nav-link nav-link--red">BACK TO TOP</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
