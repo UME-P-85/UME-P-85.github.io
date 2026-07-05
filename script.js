@@ -202,7 +202,9 @@
       open(photo, el, true);
     });
 
-    // ---- Hover with small delay = show preview (doesn't override pin) ----
+    // ---- Hover with a longer delay = show preview card.
+    // Delay is generous (600ms) so it doesn't fight the CSS hover-enlarge
+    // animation. Card only pops if you dwell — a quick pass just enlarges. ----
     field.addEventListener('mouseover', (e) => {
       const el = e.target.closest('.floating-photo');
       if (!el) return;
@@ -212,7 +214,7 @@
         const photo = photoFromEl(el);
         if (!photo) return;
         open(photo, el, false);
-      }, 120);
+      }, 600);
     });
 
     field.addEventListener('mouseout', (e) => {
@@ -260,20 +262,19 @@
   }
 
   /* -------------------------------------------------------------------------
-     6. Formspree guard — friendly alert if action still has placeholder
+     6. Contact-form guard — warn if the action still has a placeholder
+        (form now routes to zarunekodori@gmail.com via FormSubmit)
      ------------------------------------------------------------------------- */
   function bindContactGuard() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
     form.addEventListener('submit', (e) => {
       const action = form.getAttribute('action') || '';
-      if (action.includes('YOUR_FORM_ID')) {
+      if (action.includes('YOUR_FORM_ID') || action.includes('YOUR_EMAIL')) {
         e.preventDefault();
         alert(
-          'コンタクトフォームは有効化されていません。\n' +
-          'formspree.io で無料アカウントを作成し、\n' +
-          'index.html の action="https://formspree.io/f/YOUR_FORM_ID" を\n' +
-          '自分のフォームIDに置き換えてください。'
+          'コンタクトフォームの宛先が未設定です。\n' +
+          'index.html の <form action="..."> を確認してください。'
         );
       }
     });
