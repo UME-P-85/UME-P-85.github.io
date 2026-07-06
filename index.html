@@ -1,123 +1,129 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UMEP — Photography Portfolio</title>
-  <meta name="description" content="UMEP — Photographer. A floating field of editorial and portrait photography." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=5" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UMEP · Live Photography</title>
+  <meta name="description" content="UMEP — Live concert photography portfolio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=16">
 </head>
-<body id="top">
+<body>
+  <!-- ================================================================
+       Deep-sea light field (monochrome god-rays)
+       ================================================================ -->
+  <div class="deepsea-lights" aria-hidden="true">
+    <span class="ray ray-1"></span>
+    <span class="ray ray-2"></span>
+    <span class="ray ray-3"></span>
+    <span class="ray ray-4"></span>
+    <span class="ray ray-5"></span>
+    <div class="caustic caustic-a"></div>
+    <div class="caustic caustic-b"></div>
+  </div>
 
-  <!-- ================= STICKY TOP NAV (always visible) ================= -->
-  <nav class="dream-nav" aria-label="Primary">
-    <a href="#about" class="dream-nav-link">ABOUT</a>
-    <a href="#top" class="dream-brand" aria-label="Back to top">UMEP</a>
-    <a href="#contact" class="dream-nav-link">CONTACT</a>
-  </nav>
+  <!-- ================================================================
+       Site header
+       ================================================================ -->
+  <header class="site-header">
+    <a href="#top" class="logo">UMEP</a>
+    <nav class="nav">
+      <a href="#work">WORK</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </header>
 
-  <!-- ================= HERO : Dreamfield ================= -->
-  <section class="dreamfield">
+  <!-- ================================================================
+       Work — all photos flowing freely
+       ================================================================ -->
+  <main id="top">
+    <section id="work" class="work">
+      <div id="photo-grid" class="photo-grid" aria-label="UMEP photo archive"></div>
+      <div class="grid-loading" id="grid-loading">Loading photos…</div>
+    </section>
+  </main>
 
-    <!-- Massive faint wordmark in the background -->
-    <h1 class="wordmark-bg" aria-label="UMEP">UMEP</h1>
+  <!-- ================================================================
+       Lightbox
+       ================================================================ -->
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="lightbox__close" id="lb-close" aria-label="Close">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lb-prev" aria-label="Previous">‹</button>
+    <button class="lightbox__nav lightbox__nav--next" id="lb-next" aria-label="Next">›</button>
+    <figure class="lightbox__inner">
+      <img id="lb-image" alt="">
+      <figcaption class="lightbox__caption">
+        <div class="lb-caption__row">
+          <span class="lb-caption__tag" id="lb-tag">LIVE</span>
+          <span class="lb-caption__idx" id="lb-idx">000 / 508</span>
+        </div>
+        <h3 class="lb-caption__title" id="lb-title"></h3>
+        <p class="lb-caption__sub" id="lb-sub"></p>
+        <p class="lb-caption__desc" id="lb-desc"></p>
+      </figcaption>
+    </figure>
+  </div>
 
-    <!-- Floating photo field: photos are injected by script.js -->
-    <div class="floating-field" id="floating-field" aria-label="Floating photo field"></div>
-
-    <!-- Tagline hint -->
-    <p class="dream-hint">
-      <span class="hint-line" aria-hidden="true"></span>
-      HOVER OR CLICK ANY IMAGE
-    </p>
-
-    <!-- Scroll indicator -->
-    <a href="#about" class="scroll-down" aria-label="Scroll to about">
-      <span class="scroll-down-text">SCROLL</span>
-      <span class="scroll-down-arrow">↓</span>
-    </a>
-
-    <!-- Detail card: shown on click -->
-    <aside class="detail-card" id="detail-card" aria-hidden="true">
-      <button class="detail-close" id="detail-close" aria-label="Close">×</button>
-      <div class="detail-title" id="detail-title">—</div>
-      <div class="detail-subtitle" id="detail-subtitle">—</div>
-      <div class="detail-meta" id="detail-meta">—</div>
-      <p class="detail-tag" id="detail-tag">—</p>
-      <p class="detail-desc" id="detail-desc">—</p>
-      <p class="detail-desc-ja" id="detail-desc-ja">—</p>
-      <p class="detail-credit" id="detail-credit">—</p>
-    </aside>
-
-  </section>
-
-  <!-- ================= ABOUT ================= -->
-  <section class="about" id="about">
-    <h2 class="section-word">ABOUT</h2>
-    <div class="about-body">
-      <p class="about-lead">
-        UMEP is a photographer based in Japan, working across editorial, portrait, and fashion.
-      </p>
-      <p class="about-text">
-        Selected clients include magazines, fashion labels, and independent artists.
-        Recent work has appeared in editorial features and campaign visuals across Asia.
-      </p>
-      <p class="about-text">
-        Available for commissions worldwide.
+  <!-- ================================================================
+       About
+       ================================================================ -->
+  <section id="about" class="about">
+    <header class="section-heading">
+      <span class="section-heading__tag">ABOUT</span>
+      <h2 class="section-heading__title">Photographer</h2>
+    </header>
+    <div class="about__body">
+      <p>
+        UMEP — 光と静寂を撮るライブフォトグラファー。<br>
+        A live photographer capturing light and stillness on stage.
       </p>
     </div>
   </section>
 
-  <!-- ================= CONTACT ================= -->
-  <section class="contact" id="contact">
-    <h2 class="section-word">CONTACT</h2>
-    <div class="contact-body">
-      <p class="contact-lead">
-        For commissions, prints, or press inquiries.
-      </p>
+  <!-- ================================================================
+       Contact
+       ================================================================ -->
+  <section id="contact" class="contact">
+    <header class="section-heading">
+      <span class="section-heading__tag">CONTACT</span>
+      <h2 class="section-heading__title">Get in touch</h2>
+      <p class="section-heading__meta">Commissions · Press · Prints</p>
+    </header>
+    <form
+      id="contact-form"
+      class="contact-form"
+      action="https://formsubmit.co/zarunekodori@gmail.com"
+      method="POST"
+    >
+      <input type="hidden" name="_subject" value="UMEP portfolio — new inquiry">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
 
-      <!-- Contact form routes messages to zarunekodori@gmail.com via FormSubmit.
-           The first submission triggers a one-time confirmation email from
-           FormSubmit — click the link inside to activate the endpoint. -->
-      <form class="contact-form" action="https://formsubmit.co/zarunekodori@gmail.com" method="POST">
-        <!-- Subject line shown in the inbox -->
-        <input type="hidden" name="_subject" value="[UMEP Portfolio] New Message" />
-        <!-- Skip FormSubmit's captcha for a smoother UX -->
-        <input type="hidden" name="_captcha" value="false" />
-        <!-- Honeypot: bots fill this, humans don't -->
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
-
-        <div class="field">
-          <label for="name" class="field-label">NAME</label>
-          <input type="text" id="name" name="name" required class="field-input" />
-        </div>
-        <div class="field">
-          <label for="email" class="field-label">EMAIL</label>
-          <input type="email" id="email" name="email" required class="field-input" />
-        </div>
-        <div class="field">
-          <label for="message" class="field-label">MESSAGE</label>
-          <textarea id="message" name="message" rows="5" required class="field-input"></textarea>
-        </div>
-        <button type="submit" class="outlined-action">SEND MESSAGE</button>
-      </form>
-
-      <div class="contact-direct">
-        <p class="contact-lead">Or reach out directly:</p>
-        <a href="mailto:zarunekodori@gmail.com" class="outlined-action outlined-action--blue">EMAIL UMEP</a>
-      </div>
-    </div>
+      <label class="field">
+        <span class="field__label">NAME</span>
+        <input type="text" name="name" required autocomplete="name">
+      </label>
+      <label class="field">
+        <span class="field__label">EMAIL</span>
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label class="field field--full">
+        <span class="field__label">MESSAGE</span>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+      <button type="submit" class="btn-submit">SEND</button>
+    </form>
   </section>
 
-  <!-- ================= FOOTER ================= -->
   <footer class="site-footer">
-    <span class="footer-text">© 2026 UMEP</span>
-    <a href="#top" class="dream-nav-link">BACK TO FIELD ↑</a>
+    <span>© UMEP</span>
+    <span>Dreamfield · Live Series</span>
   </footer>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=16"></script>
 </body>
 </html>
